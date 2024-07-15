@@ -12,7 +12,7 @@ export async function sendVerificationEmail(
             from: 'onboarding@resend.dev',
             to: email,
             subject: 'Mystry message | Verification code',
-            react: VerificationEmail({username , otp:verifyCode})
+            react: <VerificationEmail url="https://example.com" />
         });
         return {success: true, message:'Verification Email send Successfully'}
     } catch (emailError) {

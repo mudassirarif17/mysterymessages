@@ -1,16 +1,14 @@
-import React from 'react';
+import * as React from 'react';
 import { Html, Button } from "@react-email/components";
 
-interface VerificationEmailProps {
-    username: string;
-    otp: string;
-}
+export function Email(props) {
+  const { url } = props;
 
-export default function VerificationEmail({ username , otp}) {
   return (
-    <div>
-      <h1>Welcome, {username}!</h1>
-      <p>Thanks for trying {otp}. We’re thrilled to have you on board.</p>
-    </div>
+    <Html lang="en">
+      <Button href={url}>Click me</Button>
+    </Html>
   );
 }
+
+export default Email;
