@@ -60,6 +60,10 @@ export async function POST(request: Request) {
                 }, {status : 201})
             }
         }
+        return Response.json({
+            success: false,
+            message: emailResponse.message
+        }, {status : 201})
     } catch (error) {
         console.error('Error Registering user' , error)
         return Response.json(
