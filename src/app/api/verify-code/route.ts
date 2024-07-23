@@ -3,7 +3,7 @@ import UserModel from "@/model/User";
 
 export async function POST(request: Request) {
     await dbConnect();
-    try {
+    try { 
 
         const {username , code} = await request.json();
         const decodeUserame = decodeURIComponent(username);
@@ -23,6 +23,7 @@ export async function POST(request: Request) {
         const isCodeNotExpired = new Date(user.verifyCodeExpiry) > new Date()
 
         if(isCodeValid && isCodeNotExpired){
+            user.isVerified = true; 
             await user.save();
             return Response.json(
                 {
