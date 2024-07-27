@@ -12,6 +12,7 @@ import { ApiResponse } from "@/types/ApiResponse";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast"
 import { FormControl, FormDescription, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { Loader2 } from "lucide-react";
 
 
 const page = () => {
@@ -96,7 +97,13 @@ const page = () => {
                   <FormItem>
                     <FormLabel>Username</FormLabel>
                     <FormControl>
-                      <Input placeholder="shadcn" {...field}/>
+                      <Input placeholder="username"
+                      {...field}
+                      onChange={(e)=>{
+                        field.onChange(e)
+                        setUsername(e.target.value)
+                      }}
+                      />
                     </FormControl>
                     <FormDescription>
                       This is your public display name
@@ -104,8 +111,52 @@ const page = () => {
                   </FormItem>
                 )} 
                 />
+                <FormField
+                control={form.control}
+                name="email"
+                render={({field})=>(
+                  <FormItem>
+                    <FormLabel>Email</FormLabel>
+                    <FormControl>
+                      <Input placeholder="email"
+                      {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )} 
+                />
+                <FormField
+                control={form.control}
+                name="password"
+                render={({field})=>(
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input type="password" placeholder="password"
+                      {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )} 
+                />
+                <button type="submit" disabled={isSubmitting}>
+                  {
+                    isSubmitting ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin"/> Please wait
+                      </>
+                    ) : ('Signup')
+                  }
+                  Signup</button>
               </form>
             </Form>
+                  
+            <div>
+                <p>
+                  Already a member?{' '}
+                  <Link href="/sign-in" className="text-blue-600 hover:text-blue-800">Sign in</Link>
+                </p>
+            </div>
         </div>
 
     </div>
