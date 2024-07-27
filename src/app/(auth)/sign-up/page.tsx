@@ -1,6 +1,7 @@
 "use client"
 import {zodResolver} from "@hookform/resolvers/zod";
-import {Form, useForm} from "react-hook-form";
+import {useForm} from "react-hook-form";
+import { Form } from "@/components/ui/form"
 import * as z from "zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -9,9 +10,10 @@ import {useDebounceValue} from "usehooks-ts";
 import { signUpSchema } from "@/schemas/signUpSchema";
 import axios , {AxiosError} from 'axios';
 import { ApiResponse } from "@/types/ApiResponse";
-import { title } from "process";
-import { FormControl, FormDescription, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { Input } from "@/components/ui/input"
 import { Loader2 } from "lucide-react";
+import { useToast } from "@/components/ui/use-toast"
+import { FormControl, FormDescription, FormField, FormItem, FormLabel } from "@/components/ui/form";
 
 
 const page = () => {
