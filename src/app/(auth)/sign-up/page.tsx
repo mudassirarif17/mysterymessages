@@ -3,10 +3,10 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {useForm} from "react-hook-form";
 import { Form } from "@/components/ui/form"
 import * as z from "zod";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
-import {useDebounceValue} from "usehooks-ts";
+import {useDebounceCallback} from "usehooks-ts";
 import { signUpSchema } from "@/schemas/signUpSchema";
 import axios , {AxiosError} from 'axios';
 import { ApiResponse } from "@/types/ApiResponse";
@@ -18,10 +18,11 @@ import { FormControl, FormDescription, FormField, FormItem, FormLabel } from "@/
 
 const page = () => {
   const [username , setUsername] = useState('');
-  const [usernamemessage , setusernameMessage] = useState('');
+  const [usernameMessage , setusernameMessage] = useState('');
   const [isCheckingUsername , setIsCheckingUsername] = useState(false);
   const [isSubmitting , setIsSubmitting] = useState(false);
-  const debouncedUsername = useDebounceValue(username , 300);
+
+  const debounced = useDebounceCallback(setUsername , 500);
 
 
   const {toast} = useToast();
@@ -39,11 +40,11 @@ const page = () => {
 
   useEffect(()=>{
     const checkUsernameunique = async () => {
-      if(debouncedUsername){
+      if(username){
         setIsCheckingUsername(true);
         setusernameMessage('');
         try {
-          const response = await axios.get(`/api/check-username-unique?username=${debouncedUsername}`)
+          const response = await axios.get(`/api/check-username-unique?username=${username}`)
           setusernameMessage(response.data.message);
         } catch (error) {
           const AxiosError = error as AxiosError<ApiResponse>;
@@ -54,7 +55,7 @@ const page = () => {
       }
     }
     checkUsernameunique();
-  },[debouncedUsername])
+  },[username])
 
   const onSubmit = async (data: z.infer<typeof signUpSchema>) => {
     setIsSubmitting(true)
@@ -82,7 +83,7 @@ const page = () => {
   return (
     <div className='sign-up md:flex justify-center bg-gray-100 '>
 
-        <div className='sign-up-child w-[100vw] md:w-[40vw] bg-white shadow-xl'>
+        <div className='sign-up-child w-[100vw] h-[94vh] my-4 md:w-[40vw] bg-white rounded-md shadow-xl'>
 
             <div className="description my-4">
                 <h1 className='text-center text-5xl font-extrabold'>Join Mystery <br />Message</h1>
@@ -90,7 +91,7 @@ const page = () => {
             </div>
 
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="mx-auto space-y-6 w-5/6">
                 <FormField
                 control={form.control}
                 name="username"
@@ -102,13 +103,15 @@ const page = () => {
                       {...field}
                       onChange={(e)=>{
                         field.onChange(e)
-                        setUsername(e.target.value)
+                        debounced(e.target.value)
                       }}
                       />
                     </FormControl>
-                    <FormDescription>
-                      This is your public display name
-                    </FormDescription>
+                    {
+                      isCheckingUsername && <Loader2 
+                      className="animate-spin"/>
+                    }
+                    <p className={`text-sm ${usernameMessage === "Username is unique" ? "text-green-500" : "text-red-500"}`}>test {usernameMessage}</p>
                   </FormItem>
                 )} 
                 />
@@ -140,7 +143,7 @@ const page = () => {
                   </FormItem>
                 )} 
                 />
-                <button type="submit" disabled={isSubmitting}>
+                <button className="bg-black text-white px-4 rounded-lg py-1" type="submit" disabled={isSubmitting}>
                   {
                     isSubmitting ? (
                       <>
@@ -148,13 +151,13 @@ const page = () => {
                       </>
                     ) : ('Signup')
                   }
-                  Signup</button>
+                  </button>
               </form>
             </Form>
                   
             <div>
-                <p>
-                  Already a member?{' '}
+                <p className="text-center mt-4">
+                  Already a member ?{' '}
                   <Link href="/sign-in" className="text-blue-600 hover:text-blue-800">Sign in</Link>
                 </p>
             </div>
