@@ -83,7 +83,7 @@ const page = () => {
   return (
     <div className='sign-up md:flex justify-center bg-gray-100 '>
 
-        <div className='sign-up-child w-[100vw] h-[94vh] my-4 md:w-[40vw] bg-white rounded-md shadow-xl'>
+        <div className='sign-up-child w-[100vw] md:h-[95vh] h-[99vh] md:my-4 md:w-[40vw] bg-white rounded-md shadow-xl flex justify-center flex-col'>
 
             <div className="description my-4">
                 <h1 className='text-center text-5xl font-extrabold'>Join Mystery <br />Message</h1>

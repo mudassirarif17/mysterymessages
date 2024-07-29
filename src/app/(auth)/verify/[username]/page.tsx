@@ -51,11 +51,11 @@ const VerifyUsername = () => {
   return (
     <div className='sign-up md:flex justify-center items-center h-[100vh] bg-gray-100 '>
 
-        <div className='sign-up-child w-[100vw] h-[56vh] my-4 md:w-[32vw] bg-white rounded-md shadow-xl'>
+        <div className='sign-up-child w-[100vw] h-[57vh] my-4 md:w-[32vw] bg-white rounded-md shadow-xl'>
 
             <div className="description my-4">
-                <h1 className='text-center text-5xl font-extrabold'>Verify Your<br />Account</h1>
-                <p className='text-center text-md my-2'>Enter the verification code sent to your email</p>
+                <h1 className='text-center text-3xl font-extrabold'>Verify Your<br />Account</h1>
+                <p className='text-center text-sm font-semibold my-2'>Enter the verification code sent to your email</p>
             </div>
 
             <Form {...form}>
