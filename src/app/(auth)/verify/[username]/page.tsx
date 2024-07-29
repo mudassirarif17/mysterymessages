@@ -49,9 +49,9 @@ const VerifyUsername = () => {
 
 
   return (
-    <div className='sign-up md:flex justify-center items-center h-[100vh] bg-gray-100 '>
+    <div className='sign-up md:flex justify-center items-center flex h-[100vh] bg-gray-100 '>
 
-        <div className='sign-up-child w-[100vw] h-[57vh] my-4 md:w-[32vw] bg-white rounded-md shadow-xl'>
+        <div className='verify w-[90vw] h-[50vh] md:my-4 md:w-[30vw] bg-white rounded-md shadow-xl flex justify-center flex-col'>
 
             <div className="description my-4">
                 <h1 className='text-center text-3xl font-extrabold'>Verify Your<br />Account</h1>
