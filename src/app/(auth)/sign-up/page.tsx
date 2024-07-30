@@ -107,11 +107,13 @@ const page = () => {
                       }}
                       />
                     </FormControl>
+                    <div className="flex">
                     {
                       isCheckingUsername && <Loader2 
                       className="animate-spin"/>
                     }
                     <p className={`text-sm ${usernameMessage === "Username is unique" ? "text-green-500" : "text-red-500"}`}>test {usernameMessage}</p>
+                    </div>
                   </FormItem>
                 )} 
                 />
@@ -146,9 +148,9 @@ const page = () => {
                 <button className="bg-black text-white px-4 rounded-lg py-1" type="submit" disabled={isSubmitting}>
                   {
                     isSubmitting ? (
-                      <>
+                      <div className="flex">
                         <Loader2 className="mr-2 h-4 w-4 animate-spin"/> Please wait
-                      </>
+                      </div>
                     ) : ('Signup')
                   }
                   </button>
